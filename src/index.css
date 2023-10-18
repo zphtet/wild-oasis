@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .navlink.active {
+    @apply bg-slate-100 dark:bg-color-grey-50;
+  }
+  .navlink.active .icon {
+    @apply text-violet-600 dark:bg-color-grey-50;
+  }
+  .navlink:hover .icon {
+    @apply text-violet-600;
+  }
+}
