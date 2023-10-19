@@ -1,9 +1,10 @@
-import React from 'react'
-
+import { useEffect } from "react";
+import { getAllCabins } from "../supabase/apiCabins";
 const Cabins = () => {
-  return (
-    <div>Cabins</div>
-  )
-}
+  useEffect(() => {
+    getAllCabins().then((data) => console.log(data));
+  }, []);
+  return <div>Cabins</div>;
+};
 
-export default Cabins
+export default Cabins;
