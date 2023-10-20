@@ -13,7 +13,7 @@ const Navbar = ({ css }: Props) => {
     }
   };
   return (
-    <div className={css}>
+    <div className={`${css} dark:bg-color-grey-0`}>
       Navbar
       <button onClick={modeHandler} className="cursor-pointer px-3 py-1 border">
         Mode
