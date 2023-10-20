@@ -1,4 +1,3 @@
-import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
 import { FormInputs } from "../types/types";
@@ -31,7 +30,7 @@ const CreateCabinForm = () => {
     );
   };
   return (
-    <div className="border p-5 px-10 w-[min(500px,100%)] mx-auto mt-5">
+    <div className=" p-5 px-10 w-[min(600px,95%)] mx-auto mt-5">
       <form className="space-y-2" onSubmit={handleSubmit(submitHandler)}>
         <div>
           <label
@@ -122,7 +121,7 @@ const CreateCabinForm = () => {
           />
         </div>
 
-        <div className="flex justify-end">
+        <div className="flex justify-end pt-3">
           <button
             type="submit"
             className={`btn ${isPending && "opacity-80"}`}

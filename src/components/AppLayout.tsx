@@ -7,7 +7,9 @@ const AppLayout = () => {
       <Sidebar css=" row-span-full p-5" />
       <Navbar css=" p-5" />
       <main className=" p-5  overflow-x-scroll overflow-y-scroll bg-gray-100 dark:bg-color-grey-50 ">
-        <Outlet />
+        <div className="w-[max(500px,100%)] ">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
