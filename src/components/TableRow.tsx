@@ -1,11 +1,27 @@
 import { CabinType } from "../types/types";
-
+import { useDeleteCabin } from "../hooks/useCabins";
+import { useQueryClient } from "@tanstack/react-query";
+import toast from "react-hot-toast";
 type RowType = {
   rowData: CabinType;
 };
 
 const TableRow = ({ rowData }: RowType) => {
-  const { image, maxCapacity, name, regularPrice, discount } = rowData;
+  const { id, image, maxCapacity, name, regularPrice, discount } = rowData;
+  const { isPending, deleteCabinById } = useDeleteCabin();
+  const queryClient = useQueryClient();
+
+  const deleteHandler = () => {
+    deleteCabinById(id, {
+      onSuccess: () => {
+        toast.success("Deleted successfully");
+        queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      },
+      onError: () => {
+        toast.error("Error deleting");
+      },
+    });
+  };
   return (
     <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
       <th
@@ -26,12 +42,13 @@ const TableRow = ({ rowData }: RowType) => {
       <td className="px-6 py-4">${regularPrice}</td>
       <td className="px-6 py-4">{`${discount ? "$" + discount : "--"}`}</td>
       <td className="px-6 py-4">
-        <a
-          href="#"
-          className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+        <button
+          onClick={deleteHandler}
+          className="bg-red-600 text-white text-sm"
+          disabled={isPending}
         >
-          Edit
-        </a>
+          delete
+        </button>
       </td>
     </tr>
   );

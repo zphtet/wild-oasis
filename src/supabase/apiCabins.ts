@@ -42,3 +42,14 @@ export const createNewCabin = async (newCabin: FormInputs) => {
 
   return data;
 };
+
+export const deleteCabin = async (id: number) => {
+  console.log("id", id);
+  const { error } = await supabase.from("cabins").delete().eq("id", id);
+  if (error) {
+    throw new Error("Error deleting cabin");
+  }
+  return {
+    status: "success",
+  };
+};

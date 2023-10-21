@@ -1,20 +1,15 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { useMutation } from "@tanstack/react-query";
 import { FormInputs } from "../types/types";
-import { createNewCabin } from "../supabase/apiCabins";
 import { useQueryClient } from "@tanstack/react-query";
+import { useCreateCabin } from "../hooks/useCabins";
+import toast from "react-hot-toast";
 const CreateCabinForm = () => {
   const { register, handleSubmit, reset } = useForm<FormInputs>();
-
-  const { isPending, mutate } = useMutation({
-    mutationFn: createNewCabin,
-  });
-
+  const { isPending, createCabin } = useCreateCabin();
   const queryClient = useQueryClient();
   // handlers
   const submitHandler: SubmitHandler<FormInputs> = (data) => {
-    // console.log(data);
-    mutate(
+    createCabin(
       {
         ...data,
         price: Number(data.price),
@@ -24,7 +19,11 @@ const CreateCabinForm = () => {
       {
         onSuccess: () => {
           reset();
+          toast.success(" Created Successfully");
           queryClient.invalidateQueries({ queryKey: ["cabins"] });
+        },
+        onError() {
+          toast.error("Error creating new cabin");
         },
       }
     );

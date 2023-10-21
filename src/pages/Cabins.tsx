@@ -1,5 +1,3 @@
-import { getAllCabins } from "../supabase/apiCabins";
-import { useQuery } from "@tanstack/react-query";
 import CabinTable from "../components/CabinTable";
 import { useState } from "react";
 import CreateCabinForm from "../components/CreateCabinForm";
