@@ -1,5 +1,5 @@
 import supabase, { supabaseUrl } from "./supabase";
-import { FormInputs } from "../types/types";
+import { CabinType } from "../types/types";
 export const getAllCabins = async () => {
   const { data, error } = await supabase.from("cabins").select("*");
   if (error) {
@@ -9,27 +9,27 @@ export const getAllCabins = async () => {
 };
 
 const cabinImagPath = `${supabaseUrl}/storage/v1/object/public/cabin-images/`;
-export const createNewCabin = async (newCabin: FormInputs) => {
+export const createNewCabin = async (newCabin: CabinType) => {
   const modifiedCabin = {
+    ...newCabin,
     image: "image url",
-    maxCapacity: newCabin.capacity,
-    regularPrice: newCabin.price,
-    name: newCabin.name,
-    discount: newCabin.discount,
-    description: newCabin.message,
   };
+  const isAlreadyImageUrl = typeof newCabin.image === "string";
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const cabinImage = newCabin.image[0] as any;
   const imgName = `${Math.random()}-${cabinImage.name}`.replace("/", "");
-  const { error } = await supabase.storage
-    .from("cabin-images")
-    .upload(imgName, cabinImage);
+  if (!isAlreadyImageUrl) {
+    const { error } = await supabase.storage
+      .from("cabin-images")
+      .upload(imgName, cabinImage);
 
-  if (error) {
-    throw new Error("Imag colud not uploaded");
+    if (error) {
+      throw new Error("Imag colud not uploaded");
+    }
   }
-
-  modifiedCabin.image = `${cabinImagPath}${imgName}`;
+  modifiedCabin.image = isAlreadyImageUrl
+    ? newCabin.image
+    : `${cabinImagPath}${imgName}`;
 
   const { data, error: uploadError } = await supabase
     .from("cabins")
@@ -52,4 +52,40 @@ export const deleteCabin = async (id: number) => {
   return {
     status: "success",
   };
+};
+
+export const updateCabin = async (updateCabin: CabinType) => {
+  const updateObj = {
+    ...updateCabin,
+  };
+  delete updateObj.id;
+
+  const isAlreadyImageUrl = typeof updateObj.image === "string";
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const cabinImage = updateObj.image[0] as any;
+  const imgName = `${Math.random()}-${cabinImage.name}`.replace("/", "");
+  if (!isAlreadyImageUrl) {
+    const { error } = await supabase.storage
+      .from("cabin-images")
+      .upload(imgName, cabinImage);
+
+    if (error) {
+      throw new Error("Imag colud not uploaded");
+    }
+  }
+
+  updateObj.image = isAlreadyImageUrl
+    ? updateCabin.image
+    : `${cabinImagPath}${imgName}`;
+
+  const { data, error } = await supabase
+    .from("cabins")
+    .update(updateObj)
+    .eq("id", updateCabin.id)
+    .select();
+
+  if (error) {
+    throw new Error("Error updating cabin");
+  }
+  return data;
 };

@@ -1,20 +1,43 @@
 import { useForm, SubmitHandler } from "react-hook-form";
-import { FormInputs } from "../types/types";
+import { CabinType } from "../types/types";
 import { useQueryClient } from "@tanstack/react-query";
-import { useCreateCabin } from "../hooks/useCabins";
+import { useCreateCabin, useUpdateCabin } from "../hooks/useCabins";
 import toast from "react-hot-toast";
-const CreateCabinForm = () => {
-  const { register, handleSubmit, reset } = useForm<FormInputs>();
-  const { isPending, createCabin } = useCreateCabin();
+
+type FormProps = {
+  editData?: CabinType;
+};
+const CreateCabinForm = ({ editData }: FormProps) => {
+  const { register, handleSubmit, reset } = useForm<CabinType>({
+    defaultValues: editData,
+  });
+  const { isPending: isCreating, createCabin } = useCreateCabin();
+  const { isPending: isUpdating, updateCabinById } = useUpdateCabin();
   const queryClient = useQueryClient();
+
+  const isEditMode = editData;
   // handlers
-  const submitHandler: SubmitHandler<FormInputs> = (data) => {
+  const submitHandler: SubmitHandler<CabinType> = (data) => {
+    // console.log(data);
+    if (isEditMode) {
+      updateCabinById(
+        { ...data },
+        {
+          onSuccess: () => {
+            reset();
+            toast.success(" Updated Successfully");
+            queryClient.invalidateQueries({ queryKey: ["cabins"] });
+          },
+          onError(error) {
+            toast.error(error.message);
+          },
+        }
+      );
+      return;
+    }
     createCabin(
       {
         ...data,
-        price: Number(data.price),
-        discount: Number(data.discount),
-        capacity: Number(data.capacity),
       },
       {
         onSuccess: () => {
@@ -22,12 +45,14 @@ const CreateCabinForm = () => {
           toast.success(" Created Successfully");
           queryClient.invalidateQueries({ queryKey: ["cabins"] });
         },
-        onError() {
-          toast.error("Error creating new cabin");
+        onError(error) {
+          toast.error(error.message);
         },
       }
     );
   };
+
+  const isLoading = isCreating || isUpdating;
   return (
     <div className=" p-5 px-10 w-[min(600px,95%)] mx-auto mt-5">
       <form className="space-y-2" onSubmit={handleSubmit(submitHandler)}>
@@ -54,7 +79,7 @@ const CreateCabinForm = () => {
           </label>
           <input
             type="number"
-            {...register("capacity")}
+            {...register("maxCapacity")}
             id="capacity"
             className="input"
           />
@@ -68,7 +93,7 @@ const CreateCabinForm = () => {
           </label>
           <input
             type="number"
-            {...register("price")}
+            {...register("regularPrice")}
             id="price"
             className="input"
           />
@@ -99,7 +124,7 @@ const CreateCabinForm = () => {
           <textarea
             id="message"
             rows={4}
-            {...register("message")}
+            {...register("description")}
             className="textarea"
             placeholder="Write your thoughts here..."
           ></textarea>
@@ -123,10 +148,14 @@ const CreateCabinForm = () => {
         <div className="flex justify-end pt-3">
           <button
             type="submit"
-            className={`btn ${isPending && "opacity-80"}`}
-            disabled={isPending}
+            className={`btn ${isLoading && "opacity-80"}`}
+            disabled={isLoading}
           >
-            {isPending ? "Loading ..." : "Add This"}
+            {isLoading
+              ? "Loading ..."
+              : isEditMode
+              ? "Update This"
+              : "Add This"}
           </button>
         </div>
       </form>

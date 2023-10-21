@@ -2,6 +2,7 @@ import {
   getAllCabins,
   createNewCabin,
   deleteCabin,
+  updateCabin,
 } from "../supabase/apiCabins";
 
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -36,5 +37,16 @@ export const useDeleteCabin = () => {
   return {
     deleteCabinById,
     isPending,
+  };
+};
+
+export const useUpdateCabin = () => {
+  const { isPending, mutate: updateCabinById } = useMutation({
+    mutationFn: updateCabin,
+  });
+
+  return {
+    isPending,
+    updateCabinById,
   };
 };
