@@ -4,6 +4,10 @@ import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import CreateCabinForm from "./CreateCabinForm";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { HiOutlineDuplicate } from "react-icons/hi";
+import { BiEdit } from "react-icons/bi";
+import { RiDeleteBinLine } from "react-icons/ri";
 type RowType = {
   rowData: CabinType;
 };
@@ -14,12 +18,23 @@ const TableRow = ({ rowData }: RowType) => {
   const { createCabin, isPending: isCreating } = useCreateCabin();
   const queryClient = useQueryClient();
   const [showEditForm, setShowEditForm] = useState(false);
+  const [actionActive, setActionActive] = useState(false);
+
+  const focusHandler = (e: React.MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+
+    setActionActive((prev) => !prev);
+    if (actionActive) {
+      target.focus();
+    }
+  };
 
   const deleteHandler = () => {
     deleteCabinById(id as number, {
       onSuccess: () => {
         toast.success("Deleted successfully");
         queryClient.invalidateQueries({ queryKey: ["cabins"] });
+        setActionActive(false);
       },
       onError: () => {
         toast.error("Error deleting");
@@ -34,6 +49,7 @@ const TableRow = ({ rowData }: RowType) => {
       onSuccess: () => {
         toast.success("Duplicated Successfully");
         queryClient.invalidateQueries({ queryKey: ["cabins"] });
+        setActionActive(false);
       },
       onError: () => {
         toast.error("Duplication Error");
@@ -45,7 +61,7 @@ const TableRow = ({ rowData }: RowType) => {
     setShowEditForm((prev) => !prev);
   };
 
-  const isLoading = isDeleting || isCreating;
+  // const isLoading = isDeleting || isCreating;
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -66,8 +82,8 @@ const TableRow = ({ rowData }: RowType) => {
         <td className="px-6 py-4">Fill up to {maxCapacity} guests</td>
         <td className="px-6 py-4">${regularPrice}</td>
         <td className="px-6 py-4">{`${discount ? "$" + discount : "--"}`}</td>
-        <td className="px-6 py-4 space-x-2">
-          <button
+        <td className="px-6 py-4   table-cell h-full text-right ">
+          {/* <button
             onClick={deleteHandler}
             className="bg-red-600 text-white text-sm"
             disabled={isLoading}
@@ -88,6 +104,41 @@ const TableRow = ({ rowData }: RowType) => {
             disabled={isLoading}
           >
             ed
+          </button> */}
+          <button
+            onClick={focusHandler}
+            className="cursor-pointer w-min p-2 relative hover:bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded"
+            onFocus={(e) => e.target.focus()}
+            // onBlur={() => setActionActive(false)}
+          >
+            <BiDotsVerticalRounded className=" text-xl" />
+
+            {actionActive && (
+              <div className="absolute right-[100%] -bottom-[200%]  bg-slate-100  rounded space-y-1 p-1">
+                <button
+                  onClick={duplicateHandler}
+                  className="flex text-left gap-2 items-center px-2 py-1 hover:bg-white"
+                  // onBlur={() => setActionActive(false)}
+                >
+                  {" "}
+                  <HiOutlineDuplicate /> duplicate
+                </button>
+                <button
+                  onClick={editHandler}
+                  className="flex gap-2 items-center px-2 py-1 hover:bg-white"
+                >
+                  {" "}
+                  <BiEdit /> edit
+                </button>
+                <button
+                  onClick={deleteHandler}
+                  className="flex gap-2 items-center px-2 py-1 hover:bg-white"
+                >
+                  {" "}
+                  <RiDeleteBinLine /> delete
+                </button>
+              </div>
+            )}
           </button>
         </td>
       </tr>

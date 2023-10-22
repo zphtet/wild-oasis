@@ -3,12 +3,14 @@ import { useState } from "react";
 import CreateCabinForm from "../components/CreateCabinForm";
 import { CabinType } from "../types/types";
 import { useGetCabins } from "../hooks/useCabins";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 const Cabins = () => {
   const { isError, isLoading, data } = useGetCabins();
   const [showForm, setShowForm] = useState(false);
   const showFormHandler = () => setShowForm((prev) => !prev);
-  if (isLoading) return <p>Loading ....</p>;
-  if (isError) return <p>Error ... </p>;
+  if (isLoading) return <Loading />;
+  if (isError) return <Error />;
   console.log(data);
   return (
     <div className="flex flex-col">
