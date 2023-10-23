@@ -22,12 +22,15 @@ html {
 
 @layer components {
   .btn {
-    @apply px-4 py-2 bg-violet-600 text-white hover:opacity-80;
+    @apply px-4 py-2  text-xs  bg-violet-600 text-white hover:opacity-80 md:text-sm;
   }
   .input {
     @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-violet-600 block w-full py-1.5 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  outline-none;
   }
   .textarea {
     @apply block py-1.5 px-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  focus:border-violet-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none;
+  }
+  .action-btn {
+    @apply flex  gap-2 items-center px-2 py-1 hover:bg-white dark:hover:bg-color-grey-50;
   }
 }

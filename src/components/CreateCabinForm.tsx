@@ -6,8 +6,9 @@ import toast from "react-hot-toast";
 
 type FormProps = {
   editData?: CabinType;
+  closeModel?: () => void;
 };
-const CreateCabinForm = ({ editData }: FormProps) => {
+const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
   const { register, handleSubmit, reset, formState, getValues } =
     useForm<CabinType>({
       defaultValues: editData,
@@ -48,6 +49,7 @@ const CreateCabinForm = ({ editData }: FormProps) => {
           reset();
           toast.success(" Created Successfully");
           queryClient.invalidateQueries({ queryKey: ["cabins"] });
+          closeModel?.();
         },
         onError(error) {
           toast.error(error.message);

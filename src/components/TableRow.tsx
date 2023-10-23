@@ -3,11 +3,12 @@ import { useDeleteCabin, useCreateCabin } from "../hooks/useCabins";
 import { useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useState } from "react";
-import CreateCabinForm from "./CreateCabinForm";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { HiOutlineDuplicate } from "react-icons/hi";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
+import Form from "./Form";
+import confirm from "./DeleteConfirm";
 type RowType = {
   rowData: CabinType;
 };
@@ -29,7 +30,9 @@ const TableRow = ({ rowData }: RowType) => {
     }
   };
 
-  const deleteHandler = () => {
+  const deleteHandler = async () => {
+    // setShowDeleteBox((prev) => !prev);
+    if (!(await confirm({}))) return;
     deleteCabinById(id as number, {
       onSuccess: () => {
         toast.success("Deleted successfully");
@@ -85,45 +88,38 @@ const TableRow = ({ rowData }: RowType) => {
         <td className="px-6 py-4   table-cell h-full text-right ">
           <button
             onClick={focusHandler}
-            className="cursor-pointer w-min p-2 relative hover:bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded"
-            onFocus={(e) => e.target.focus()}
-            // onBlur={() => setActionActive(false)}
+            className="cursor-pointer w-min p-2 relative bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded dark:bg-color-grey-0"
           >
             <BiDotsVerticalRounded className=" text-xl" />
 
             {actionActive && (
-              <div className="absolute right-[100%] -bottom-[200%]  bg-slate-100  rounded space-y-1 p-1">
-                <button
+              <div className="absolute right-[100%] -bottom-[200%]  bg-slate-100  rounded space-y-1 p-1 dark:bg-color-grey-0">
+                <div
                   onClick={duplicateHandler}
-                  className="flex text-left gap-2 items-center px-2 py-1 hover:bg-white"
+                  className="action-btn"
                   // onBlur={() => setActionActive(false)}
                 >
                   {" "}
                   <HiOutlineDuplicate /> duplicate
-                </button>
-                <button
-                  onClick={editHandler}
-                  className="flex gap-2 items-center px-2 py-1 hover:bg-white"
-                >
+                </div>
+                <div onClick={editHandler} className="action-btn">
                   {" "}
                   <BiEdit /> edit
-                </button>
-                <button
-                  onClick={deleteHandler}
-                  className="flex gap-2 items-center px-2 py-1 hover:bg-white"
-                >
+                </div>
+                <div onClick={deleteHandler} className="action-btn">
                   {" "}
                   <RiDeleteBinLine /> delete
-                </button>
+                </div>
               </div>
             )}
           </button>
         </td>
       </tr>
       {showEditForm && (
-        <div className="w-full table-cell horizontal-middle border border-red-600">
-          <CreateCabinForm editData={rowData} />
-        </div>
+        <Form
+          handler={() => setShowEditForm((prev) => !prev)}
+          editData={rowData}
+        />
       )}
     </>
   );

@@ -12,8 +12,8 @@ const Cabins = () => {
   console.log(data);
   return (
     <div className="flex flex-col">
-      <h2 className="text-2xl font-bold">All Cabins</h2>
-      <div className="cabin-table py-8  w-full ">
+      <h2 className="text-xl md:text-2xl font-bold">All Cabins</h2>
+      <div className="cabin-table py-2 md:py-6  w-full ">
         <CabinTable data={data as CabinType[]} />
       </div>
       <AddCabin />

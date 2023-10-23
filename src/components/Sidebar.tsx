@@ -13,7 +13,7 @@ type Props = {
 const Sidebar = ({ css }: Props) => {
   return (
     <div className={`${css} bg-white  dark:bg-color-grey-0 `}>
-      <div className="max-w-[150px]">
+      <div className="md:max-w-[150px] max-w-[80px]">
         <img
           src={"logo-light.png"}
           className="w-full object-contain"
