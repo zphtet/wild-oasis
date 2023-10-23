@@ -17,8 +17,6 @@ const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
   const { isPending: isUpdating, updateCabinById } = useUpdateCabin();
   const queryClient = useQueryClient();
 
-  console.log(formState.errors, "FOrm State Errors");
-
   const { name, image, regularPrice, discount, maxCapacity } = formState.errors;
 
   const isEditMode = editData;
@@ -26,12 +24,13 @@ const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
   const submitHandler: SubmitHandler<CabinType> = (data) => {
     if (isEditMode) {
       updateCabinById(
-        { ...data },
+        { ...data, discount: data.discount ? data.discount : 0 },
         {
           onSuccess: () => {
             reset();
             toast.success(" Updated Successfully");
             queryClient.invalidateQueries({ queryKey: ["cabins"] });
+            closeModel?.();
           },
           onError(error) {
             toast.error(error.message);
@@ -188,7 +187,7 @@ const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
           <input
             type="file"
             {...register("image", {
-              required: "Please upload your cabin photo",
+              required: isEditMode ? false : "Cabin photo is required",
             })}
             id="image"
             className="input"

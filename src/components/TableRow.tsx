@@ -84,7 +84,9 @@ const TableRow = ({ rowData }: RowType) => {
         </th>
         <td className="px-6 py-4">Fill up to {maxCapacity} guests</td>
         <td className="px-6 py-4">${regularPrice}</td>
-        <td className="px-6 py-4">{`${discount ? "$" + discount : "--"}`}</td>
+        <td className="px-6 py-4">{`${
+          discount > 0 ? "$" + discount : "--"
+        }`}</td>
         <td className="px-6 py-4   table-cell h-full text-right ">
           <button
             onClick={focusHandler}
