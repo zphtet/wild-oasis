@@ -29,9 +29,15 @@ const CabinTable = ({ data }: TableProps) => {
           </tr>
         </thead>
         <tbody>
-          {data.map((row) => {
-            return <TableRow key={row.id} rowData={row} />;
-          })}
+          {data.length === 0 && (
+            <tr>
+              <td className="py-2 text-base">No Cabin Found</td>
+            </tr>
+          )}
+          {data.length > 0 &&
+            data.map((row) => {
+              return <TableRow key={row.id} rowData={row} />;
+            })}
           {/* <TableRow />
           <TableRow /> */}
         </tbody>

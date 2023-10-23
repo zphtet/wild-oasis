@@ -3,6 +3,12 @@ import { ChangeEvent } from "react";
 import { useSearchParams } from "react-router-dom";
 const SortByArr = [
   {
+    id: 0,
+    name: "Sort by ..",
+    field: "default",
+    modifier: "asc",
+  },
+  {
     id: 1,
     name: "Sort By Name (A - Z)",
     field: "name",
@@ -41,9 +47,7 @@ const SortByArr = [
 ];
 
 const SortCabin = () => {
-  //   const ref = useRef<HTMLSelectElement>();
   const [searchParams, setSearchParams] = useSearchParams();
-
   const changeHandler = (e: ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
     setSearchParams((param) => {
@@ -52,12 +56,15 @@ const SortCabin = () => {
     });
   };
 
-  const activeSort = searchParams.get("sortby") || "name-asc";
+  const activeSort = searchParams.get("sortby") || "default-asc";
 
   const filterActiveSort = SortByArr.filter(({ field, modifier }) => {
     return activeSort === `${field}-${modifier}`;
   });
 
+  const dfValue = `${filterActiveSort[0]?.field || "default"}-${
+    filterActiveSort[0]?.modifier || "asc"
+  }`;
   return (
     <div>
       <select
@@ -65,9 +72,7 @@ const SortCabin = () => {
         id="sortby"
         className="text-sm outline-none px-3 py-2"
         onChange={changeHandler}
-        // value={filterActiveSort[0].name}
-        //   defaultValue={filterActiveSort[0].}
-        value={`${filterActiveSort[0].field}-${filterActiveSort[0].modifier}`}
+        value={dfValue}
       >
         {SortByArr.map(({ id, name, field, modifier }) => {
           return (
