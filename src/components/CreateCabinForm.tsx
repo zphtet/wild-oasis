@@ -169,7 +169,7 @@ const CreateCabinForm = ({ editData }: FormProps) => {
           </label>
           <textarea
             id="message"
-            rows={4}
+            rows={3}
             {...register("description")}
             className="textarea"
             placeholder="Write your thoughts here..."
@@ -205,8 +205,8 @@ const CreateCabinForm = ({ editData }: FormProps) => {
             {isLoading
               ? "Loading ..."
               : isEditMode
-              ? "Update This"
-              : "Add This"}
+              ? "Update Cabin"
+              : "Add Cabin"}
           </button>
         </div>
       </form>

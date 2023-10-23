@@ -25,9 +25,9 @@ html {
     @apply px-4 py-2 bg-violet-600 text-white hover:opacity-80;
   }
   .input {
-    @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-violet-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  outline-none;
+    @apply shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  focus:border-violet-600 block w-full py-1.5 px-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white  outline-none;
   }
   .textarea {
-    @apply block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  focus:border-violet-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none;
+    @apply block py-1.5 px-2 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300  focus:border-violet-600 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white outline-none;
   }
 }

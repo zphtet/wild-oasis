@@ -14,8 +14,8 @@ type RowType = {
 
 const TableRow = ({ rowData }: RowType) => {
   const { id, image, maxCapacity, name, regularPrice, discount } = rowData;
-  const { isPending: isDeleting, deleteCabinById } = useDeleteCabin();
-  const { createCabin, isPending: isCreating } = useCreateCabin();
+  const { deleteCabinById } = useDeleteCabin();
+  const { createCabin } = useCreateCabin();
   const queryClient = useQueryClient();
   const [showEditForm, setShowEditForm] = useState(false);
   const [actionActive, setActionActive] = useState(false);
@@ -83,28 +83,6 @@ const TableRow = ({ rowData }: RowType) => {
         <td className="px-6 py-4">${regularPrice}</td>
         <td className="px-6 py-4">{`${discount ? "$" + discount : "--"}`}</td>
         <td className="px-6 py-4   table-cell h-full text-right ">
-          {/* <button
-            onClick={deleteHandler}
-            className="bg-red-600 text-white text-sm"
-            disabled={isLoading}
-          >
-            de
-          </button>
-          <button
-            onClick={duplicateHandler}
-            className="bg-violet-600 text-white text-sm"
-            disabled={isLoading}
-          >
-            du
-          </button>
-
-          <button
-            onClick={editHandler}
-            className="bg-green-600 text-white text-sm"
-            disabled={isLoading}
-          >
-            ed
-          </button> */}
           <button
             onClick={focusHandler}
             className="cursor-pointer w-min p-2 relative hover:bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded"
