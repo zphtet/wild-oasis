@@ -21,7 +21,6 @@ const TableRow = ({ rowData }: RowType) => {
   const queryClient = useQueryClient();
   const [showEditForm, setShowEditForm] = useState(false);
   const [actionActive, setActionActive] = useState(false);
-
   const [showModal, setShowModal] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
 
