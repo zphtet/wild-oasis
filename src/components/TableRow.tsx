@@ -70,7 +70,7 @@ const TableRow = ({ rowData }: RowType) => {
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
         <th
           scope="row"
-          className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-3 "
+          className="px-1 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white flex items-center gap-3 "
         >
           <div className="img-container w-[70px] h-[50px] overflow-hidden">
             <img
@@ -82,12 +82,12 @@ const TableRow = ({ rowData }: RowType) => {
 
           <p>{name}</p>
         </th>
-        <td className="px-6 py-4">Fill up to {maxCapacity} guests</td>
-        <td className="px-6 py-4">${regularPrice}</td>
-        <td className="px-6 py-4">{`${
+        <td className=" px-1 py-4">Fill up to {maxCapacity} guests</td>
+        <td className=" px-1 py-4">${regularPrice}</td>
+        <td className="px-1 py-4">{`${
           discount > 0 ? "$" + discount : "--"
         }`}</td>
-        <td className="px-6 py-4   table-cell h-full text-right ">
+        <td className="px-1 py-4   table-cell h-full text-right ">
           <button
             onClick={focusHandler}
             className="cursor-pointer w-min p-2 relative bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded dark:bg-color-grey-0"

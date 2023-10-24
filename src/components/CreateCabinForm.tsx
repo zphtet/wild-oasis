@@ -59,8 +59,8 @@ const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
 
   const isLoading = isCreating || isUpdating;
   return (
-    <div className=" p-5 px-10 w-[min(600px,95%)] mx-auto mt-5">
-      <form className="space-y-2" onSubmit={handleSubmit(submitHandler)}>
+    <div className=" p-5 px-10  mx-auto mt-5">
+      <form className="space-y-2  " onSubmit={handleSubmit(submitHandler)}>
         <div>
           <label
             htmlFor="cabinName"
