@@ -70,7 +70,7 @@ const SortCabin = () => {
       <select
         name="sortby"
         id="sortby"
-        className="text-sm outline-none px-3 py-2"
+        className="text-sm outline-none px-3 py-2 dark:bg-color-grey-0"
         onChange={changeHandler}
         value={dfValue}
       >

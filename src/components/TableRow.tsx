@@ -8,7 +8,8 @@ import { HiOutlineDuplicate } from "react-icons/hi";
 import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Form from "./Form";
-import confirm from "./DeleteConfirm";
+import ConfirmDelete from "./ConfirmDelete";
+
 type RowType = {
   rowData: CabinType;
 };
@@ -21,6 +22,9 @@ const TableRow = ({ rowData }: RowType) => {
   const [showEditForm, setShowEditForm] = useState(false);
   const [actionActive, setActionActive] = useState(false);
 
+  const [showModal, setShowModal] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+
   const focusHandler = (e: React.MouseEvent) => {
     const target = e.target as HTMLButtonElement;
 
@@ -31,8 +35,7 @@ const TableRow = ({ rowData }: RowType) => {
   };
 
   const deleteHandler = async () => {
-    // setShowDeleteBox((prev) => !prev);
-    if (!(await confirm({}))) return;
+    setIsDeleting((prev) => !prev);
     deleteCabinById(id as number, {
       onSuccess: () => {
         toast.success("Deleted successfully");
@@ -41,6 +44,9 @@ const TableRow = ({ rowData }: RowType) => {
       },
       onError: () => {
         toast.error("Error deleting");
+      },
+      onSettled: () => {
+        setShowModal(false);
       },
     });
   };
@@ -108,7 +114,7 @@ const TableRow = ({ rowData }: RowType) => {
                   {" "}
                   <BiEdit /> edit
                 </div>
-                <div onClick={deleteHandler} className="action-btn">
+                <div onClick={() => setShowModal(true)} className="action-btn">
                   {" "}
                   <RiDeleteBinLine /> delete
                 </div>
@@ -121,6 +127,13 @@ const TableRow = ({ rowData }: RowType) => {
         <Form
           handler={() => setShowEditForm((prev) => !prev)}
           editData={rowData}
+        />
+      )}
+      {showModal && (
+        <ConfirmDelete
+          closeModal={setShowModal}
+          isLoading={isDeleting}
+          handler={deleteHandler}
         />
       )}
     </>

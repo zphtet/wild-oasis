@@ -7,7 +7,7 @@ const filterByArr = [
 
 const FilterCabin = () => {
   return (
-    <div className="bg-white px-3 py-1 space-x-2">
+    <div className="bg-white px-3 py-1 space-x-2 dark:bg-color-grey-0">
       {filterByArr.map(({ id, name }) => {
         return <FilterBtn key={id} name={name} />;
       })}
