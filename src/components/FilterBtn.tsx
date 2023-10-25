@@ -1,11 +1,13 @@
 import { useSearchParams } from "react-router-dom";
 
-const FilterBtn = ({ name }: { name: string }) => {
+const FilterBtn = ({ name }: { name: "cabin" | "booking" }) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const clickHandler = () => {
     setSearchParams((params) => {
       params.set("filter", name.toLocaleLowerCase());
+      // if (name === "booking") params.set("page", "1");
+      params.set("page", "1");
       return params;
     });
   };

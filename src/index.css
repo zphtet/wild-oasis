@@ -33,4 +33,7 @@ html {
   .action-btn {
     @apply flex  gap-2 items-center px-2 py-1 hover:bg-white dark:hover:bg-color-grey-50;
   }
+  .pagi-btn {
+    @apply border border-violet-600 px-4 pb-0.5 rounded-md hover:opacity-50;
+  }
 }
