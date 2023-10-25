@@ -26,7 +26,7 @@ const Setting = () => {
 
   const blurHandler = async () => {
     if (Object?.keys(updateField).length === 0) return;
-    console.log(updateField);
+
     updateSetting(updateField, {
       onSuccess: () => {
         toast.success("Successfully updated");

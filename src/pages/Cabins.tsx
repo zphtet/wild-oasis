@@ -4,8 +4,8 @@ import { CabinType } from "../types/types";
 import { useGetCabins } from "../hooks/useCabins";
 import Loading from "../components/Loading";
 import Error from "../components/Error";
-import FilterCabin from "../components/FilterCabin";
-import SortCabin from "../components/SortCabin";
+import FilterCabin from "../components/FilterContainer";
+import SortCabin from "../components/SortContainer";
 import { useSearchParams } from "react-router-dom";
 const Cabins = () => {
   const { isError, isLoading, data } = useGetCabins();
@@ -44,8 +44,8 @@ const Cabins = () => {
       <div className="flex items-center justify-between">
         <h2 className="text-xl md:text-2xl font-bold">All Cabins</h2>
         <div className="flex gap-4 items-center">
-          <FilterCabin />
-          <SortCabin />
+          <FilterCabin section="cabin" />
+          <SortCabin section="cabin" />
         </div>
       </div>
 

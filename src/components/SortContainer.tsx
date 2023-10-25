@@ -1,7 +1,7 @@
 import { ChangeEvent } from "react";
 
 import { useSearchParams } from "react-router-dom";
-const SortByArr = [
+const SortByArrCabin = [
   {
     id: 0,
     name: "Sort by ..",
@@ -46,7 +46,40 @@ const SortByArr = [
   },
 ];
 
-const SortCabin = () => {
+const SortByArrBooking = [
+  {
+    id: 0,
+    name: "Sort by ..",
+    field: "default",
+    modifier: "asc",
+  },
+  {
+    id: 1,
+    name: "Sort By Date (recent first)",
+    field: "created_at",
+    modifier: "desc",
+  },
+  {
+    id: 7,
+    name: "Sort By Date (earlier first)",
+    field: "created_at",
+    modifier: "asc",
+  },
+  {
+    id: 3,
+    name: "Sort By Price (high first)",
+    field: "totalPrice",
+    modifier: "desc",
+  },
+  {
+    id: 4,
+    name: "Sort By Price (low first)",
+    field: "totalPrice",
+    modifier: "asc",
+  },
+];
+
+const SortCabin = ({ section }: { section: "cabin" | "booking" }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const changeHandler = (e: ChangeEvent) => {
     const target = e.target as HTMLSelectElement;
@@ -56,8 +89,9 @@ const SortCabin = () => {
     });
   };
 
-  const activeSort = searchParams.get("sortby") || "default-asc";
+  const SortByArr = section === "cabin" ? SortByArrCabin : SortByArrBooking;
 
+  const activeSort = searchParams.get("sortby") || "default-asc";
   const filterActiveSort = SortByArr.filter(({ field, modifier }) => {
     return activeSort === `${field}-${modifier}`;
   });

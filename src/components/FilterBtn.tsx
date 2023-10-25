@@ -20,6 +20,7 @@ const FilterBtn = ({ name }: { name: string }) => {
   return (
     <button
       onClick={clickHandler}
+      disabled={menuActive}
       className={`px-3 py-1 text-sm  hover:bg-violet-600 rounded-md hover:text-white ${
         menuActive && "bg-violet-600 text-white cursor-not-allowed"
       }`}

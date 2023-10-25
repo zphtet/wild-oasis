@@ -42,6 +42,7 @@ const CreateCabinForm = ({ editData, closeModel }: FormProps) => {
     createCabin(
       {
         ...data,
+        discount: data.discount || 0,
       },
       {
         onSuccess: () => {
