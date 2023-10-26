@@ -1,5 +1,6 @@
 import supabase from "./supabase";
 import { SIZE_PER_PAGE } from "../utils/constant";
+
 type Props = {
   status?: string;
   sortby?: string;
@@ -29,7 +30,6 @@ export const getAllBookings = async ({ status, sortby, page }: Props) => {
     query = query.range(skip, final);
   }
   const { error, data, count } = await query;
-  console.log(count, "total countnumber");
   if (error) {
     throw new Error("Error fetching all bookings");
   }
@@ -49,4 +49,16 @@ export const deleteBooking = async (id: number) => {
   return {
     status: "success",
   };
+};
+
+export const getBooking = async (id: number) => {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("* , guests(*), cabins(name)")
+    .eq("id", id);
+
+  if (error) {
+    throw new Error("Error getting booking");
+  }
+  return data;
 };

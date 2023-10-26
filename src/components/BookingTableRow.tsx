@@ -54,6 +54,9 @@ const BookingTableRow = ({ booking }: BookingProps) => {
   const routeToDetail = () => {
     navigate(`/booking/detail/${booking.id}`);
   };
+  const checkInHandler = () => {
+    navigate(`/booking/check/${booking.id}`);
+  };
 
   const deleteHandler = () => {
     // setShowModal(() => true);
@@ -97,7 +100,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
         </td>
         <td className="px-1 py-4 ">
           <p
-            className={`border w-max px-3 py-1 rounded-3xl text-black ${statusStyle}`}
+            className={`border w-max px-3 py-1 rounded-3xl text-white ${statusStyle}`}
           >
             {status}
           </p>
@@ -117,7 +120,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
                   <AiFillEye /> see details
                 </div>
                 {!isCheckout && !isCheckIn && (
-                  <div className="action-btn booking">
+                  <div className="action-btn booking" onClick={checkInHandler}>
                     {" "}
                     <AiOutlineVerticalAlignBottom /> check in
                   </div>

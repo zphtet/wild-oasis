@@ -13,3 +13,12 @@ export const formatDate = (date: Date) => {
     day: "numeric",
   });
 };
+
+export const formatDate2 = (date: Date) => {
+  return intlFormat(new Date(date), {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    weekday: "short",
+  });
+};

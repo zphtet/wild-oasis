@@ -21,6 +21,11 @@ export type SettingType = {
 type GuestType = {
   fullName: string;
   email: string;
+  nationalID: string | number;
+  nationality: string;
+  countryFlag: string;
+  id: number;
+  created_at: Date;
 };
 
 export type BookingType = {

@@ -18,6 +18,10 @@ function App() {
             path="/booking/detail/:bookingId"
             element={<BookingDetail />}
           />
+          <Route
+            path="/booking/check/:bookingId"
+            element={<BookingDetail isChecking={true} />}
+          />
           <Route path="/cabins" element={<Cabins />} />
           <Route path="/users" element={<Users />} />
           <Route path="/setting" element={<Setting />} />

@@ -15,7 +15,7 @@ const Sidebar = ({ css }: Props) => {
     <div className={`${css} bg-white  dark:bg-color-grey-0 `}>
       <div className="md:max-w-[150px] max-w-[60px]">
         <img
-          src={"logo-light.png"}
+          src={"/logo-light.png"}
           className="w-full object-contain"
           alt="logo"
         />

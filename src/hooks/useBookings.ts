@@ -1,4 +1,8 @@
-import { getAllBookings, deleteBooking } from "../supabase/apiBookings";
+import {
+  getAllBookings,
+  deleteBooking,
+  getBooking,
+} from "../supabase/apiBookings";
 
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useSearchParams } from "react-router-dom";
@@ -68,5 +72,18 @@ export const useDeleteBooking = () => {
   return {
     isPending,
     deleteBookingById,
+  };
+};
+
+export const useGetBooking = (id: number) => {
+  const { isError, isLoading, data } = useQuery({
+    queryKey: ["booking", id],
+    queryFn: () => getBooking(id),
+  });
+
+  return {
+    isError,
+    isLoading,
+    data,
   };
 };
