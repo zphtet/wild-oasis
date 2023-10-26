@@ -1,10 +1,28 @@
 import { BookingType } from "../types/types";
 import { formatCreatedDate, formatDate } from "../utils/helper";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import { RiDeleteBinLine } from "react-icons/ri";
+import { useState } from "react";
+import {
+  AiFillEye,
+  AiOutlineVerticalAlignBottom,
+  AiOutlineVerticalAlignTop,
+} from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
+import { useDeleteBooking } from "../hooks/useBookings";
+import ConfirmDelete from "./ConfirmDelete";
+import toast from "react-hot-toast";
+import { useQueryClient } from "@tanstack/react-query";
 type BookingProps = {
   booking: BookingType;
 };
 const BookingTableRow = ({ booking }: BookingProps) => {
-  // console.log(booking);
+  const [actionActive, setActionActive] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const { deleteBookingById } = useDeleteBooking();
+  const [isDeleting, setIsDeleting] = useState(false);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const {
     cabins,
     guests,
@@ -26,6 +44,36 @@ const BookingTableRow = ({ booking }: BookingProps) => {
       ? "bg-green-400"
       : "bg-gray-200";
 
+  const focusHandler = (e: React.MouseEvent) => {
+    const target = e.target as HTMLButtonElement;
+    setActionActive((prev) => !prev);
+    if (actionActive) {
+      target.focus();
+    }
+  };
+  const routeToDetail = () => {
+    navigate(`/booking/detail/${booking.id}`);
+  };
+
+  const deleteHandler = () => {
+    // setShowModal(() => true);
+    setIsDeleting((prev) => !prev);
+    deleteBookingById(booking.id, {
+      onSuccess: () => {
+        toast.success("Successfully deleted");
+        queryClient.invalidateQueries();
+      },
+      onError: () => {
+        toast.error("Error deleting booking");
+      },
+      onSettled: () => {
+        setShowModal(false);
+      },
+    });
+  };
+
+  const isCheckout = booking.status === "checked-out";
+  const isCheckIn = booking.status === "checked-in";
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -55,8 +103,51 @@ const BookingTableRow = ({ booking }: BookingProps) => {
           </p>
         </td>
         <td className="px-1 py-4">${price}</td>
-        <td className="px-4 py-4   table-cell h-full text-right ">...</td>
+        <td className="px-4 py-4   table-cell h-full text-right  ">
+          <button
+            onClick={focusHandler}
+            className="cursor-pointer w-max p-2 relative bg-slate-100 focus:outline-1 focus:outline-violet-600 focus:bg-slate-200 focus:border focus:border-violet-600 rounded dark:bg-color-grey-0"
+          >
+            <BiDotsVerticalRounded className=" text-xl" />
+
+            {actionActive && (
+              <div className="absolute right-[100%] -bottom-[200%]  bg-slate-100  rounded space-y-1 p-1 dark:bg-color-grey-0 w-max">
+                <div onClick={routeToDetail} className="action-btn booking">
+                  {" "}
+                  <AiFillEye /> see details
+                </div>
+                {!isCheckout && !isCheckIn && (
+                  <div className="action-btn booking">
+                    {" "}
+                    <AiOutlineVerticalAlignBottom /> check in
+                  </div>
+                )}
+                {isCheckIn && (
+                  <div className="action-btn booking">
+                    {" "}
+                    <AiOutlineVerticalAlignTop /> check out
+                  </div>
+                )}
+
+                <div
+                  className="action-btn booking"
+                  onClick={() => setShowModal(true)}
+                >
+                  {" "}
+                  <RiDeleteBinLine /> delete
+                </div>
+              </div>
+            )}
+          </button>
+        </td>
       </tr>
+      {showModal && (
+        <ConfirmDelete
+          closeModal={setShowModal}
+          isLoading={isDeleting}
+          handler={deleteHandler}
+        />
+      )}
     </>
   );
 };

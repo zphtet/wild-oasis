@@ -3,6 +3,7 @@ import BookingTableRow from "./BookingTableRow";
 import Error from "./Error";
 import Loading from "./Loading";
 import Pagination from "./Pagination";
+import { SIZE_PER_PAGE } from "../utils/constant";
 const BookingTable = () => {
   const { isError, isLoading, data } = useGetBookings();
   if (isError) return <Error />;
@@ -14,7 +15,7 @@ const BookingTable = () => {
 
   return (
     <>
-      <div className="relative  fflex items-center justify-center ">
+      <div className="relative  fflex items-center justify-center z-50 ">
         <table className=" w-full max-w-full  text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className=" uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
             <tr>
@@ -45,7 +46,7 @@ const BookingTable = () => {
           </tbody>
         </table>
       </div>
-      {totalCount! > 3 && (
+      {totalCount! > SIZE_PER_PAGE && (
         <Pagination total={totalCount!} start={start!} end={end} />
       )}
     </>

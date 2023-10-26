@@ -40,3 +40,13 @@ export const getAllBookings = async ({ status, sortby, page }: Props) => {
     final,
   };
 };
+
+export const deleteBooking = async (id: number) => {
+  const { error } = await supabase.from("bookings").delete().eq("id", id);
+  if (error) {
+    throw new Error("Error deleting booking");
+  }
+  return {
+    status: "success",
+  };
+};

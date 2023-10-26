@@ -1,1 +1,1 @@
-export const SIZE_PER_PAGE = 3;
+export const SIZE_PER_PAGE = 5;

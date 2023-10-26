@@ -59,12 +59,7 @@ const SortByArrBooking = [
     field: "created_at",
     modifier: "desc",
   },
-  {
-    id: 7,
-    name: "Sort By Date (earlier first)",
-    field: "created_at",
-    modifier: "asc",
-  },
+
   {
     id: 3,
     name: "Sort By Price (high first)",
