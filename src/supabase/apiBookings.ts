@@ -1,5 +1,6 @@
 import supabase from "./supabase";
 import { SIZE_PER_PAGE } from "../utils/constant";
+import { BookingType } from "../types/types";
 
 type Props = {
   status?: string;
@@ -60,5 +61,22 @@ export const getBooking = async (id: number) => {
   if (error) {
     throw new Error("Error getting booking");
   }
+  return data;
+};
+
+export const updateBooking = async (obj: Partial<BookingType>) => {
+  console.log(obj, " to update booking");
+  const updateObj = { ...obj };
+  delete updateObj.id;
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(updateObj)
+    .eq("id", obj.id)
+    .select();
+
+  if (error) {
+    throw new Error("Error updating booking");
+  }
+
   return data;
 };

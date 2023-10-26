@@ -13,6 +13,7 @@ import { useDeleteBooking } from "../hooks/useBookings";
 import ConfirmDelete from "./ConfirmDelete";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
+import { useUpdateBooking } from "../hooks/useBookings";
 type BookingProps = {
   booking: BookingType;
 };
@@ -21,6 +22,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
   const [showModal, setShowModal] = useState(false);
   const { deleteBookingById } = useDeleteBooking();
   const [isDeleting, setIsDeleting] = useState(false);
+  const { updateBookingById } = useUpdateBooking();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const {
@@ -33,9 +35,13 @@ const BookingTableRow = ({ booking }: BookingProps) => {
     status,
     numNights,
     hasBreakfast,
+    numGuests,
+    id,
   } = booking;
 
-  const price = hasBreakfast ? numNights * 15 + totalPrice : totalPrice;
+  const price = hasBreakfast
+    ? numNights * numGuests * 5 + totalPrice
+    : totalPrice;
 
   const statusStyle =
     status === "unconfirmed"
@@ -59,7 +65,6 @@ const BookingTableRow = ({ booking }: BookingProps) => {
   };
 
   const deleteHandler = () => {
-    // setShowModal(() => true);
     setIsDeleting((prev) => !prev);
     deleteBookingById(booking.id, {
       onSuccess: () => {
@@ -73,6 +78,25 @@ const BookingTableRow = ({ booking }: BookingProps) => {
         setShowModal(false);
       },
     });
+  };
+
+  const checkoutHandler = () => {
+    updateBookingById(
+      {
+        id: id,
+        status: "checked-out",
+      },
+      {
+        onSuccess: () => {
+          toast.success("Successfully updated");
+          queryClient.invalidateQueries({ queryKey: ["booking", id] });
+          navigate("/booking");
+        },
+        onError: () => {
+          toast.error("Error updating booking");
+        },
+      }
+    );
   };
 
   const isCheckout = booking.status === "checked-out";
@@ -126,7 +150,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
                   </div>
                 )}
                 {isCheckIn && (
-                  <div className="action-btn booking">
+                  <div className="action-btn booking" onClick={checkoutHandler}>
                     {" "}
                     <AiOutlineVerticalAlignTop /> check out
                   </div>

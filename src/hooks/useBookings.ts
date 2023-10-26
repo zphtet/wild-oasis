@@ -2,6 +2,7 @@ import {
   getAllBookings,
   deleteBooking,
   getBooking,
+  updateBooking,
 } from "../supabase/apiBookings";
 
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -86,4 +87,12 @@ export const useGetBooking = (id: number) => {
     isLoading,
     data,
   };
+};
+
+export const useUpdateBooking = () => {
+  const { isPending, mutate: updateBookingById } = useMutation({
+    mutationFn: updateBooking,
+  });
+
+  return { isPending, updateBookingById };
 };
