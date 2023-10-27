@@ -6,13 +6,16 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Users from "./pages/Users";
 import Setting from "./pages/Setting";
 import BookingDetail from "./components/BookingDetail";
+import Login from "./pages/Login";
 function App() {
   return (
     <div>
       <Routes>
+        <Route path="/login" element={<Login />} />
         <Route element={<AppLayout />}>
           <Route index element={<Navigate replace to="/dashboard" />}></Route>
           <Route path="/dashboard" element={<Dashboard />} />
+
           <Route path="/booking" element={<Bookings />} />
           <Route
             path="/booking/detail/:bookingId"
