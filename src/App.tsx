@@ -7,12 +7,19 @@ import Users from "./pages/Users";
 import Setting from "./pages/Setting";
 import BookingDetail from "./components/BookingDetail";
 import Login from "./pages/Login";
+import ProtectRoutes from "./components/ProtectRoutes";
 function App() {
   return (
     <div>
       <Routes>
         <Route path="/login" element={<Login />} />
-        <Route element={<AppLayout />}>
+        <Route
+          element={
+            <ProtectRoutes>
+              <AppLayout />
+            </ProtectRoutes>
+          }
+        >
           <Route index element={<Navigate replace to="/dashboard" />}></Route>
           <Route path="/dashboard" element={<Dashboard />} />
 
