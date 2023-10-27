@@ -47,3 +47,10 @@ export type BookingType = {
   cabins: Partial<CabinType>;
   guests: GuestType;
 };
+
+export type NewUserType = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+};

@@ -40,7 +40,7 @@ const Setting = () => {
   return (
     <div>
       <p className="text-2xl">Update Hotel Settings</p>
-      <div className="mt-5 w-[min(600px,100%)] border mr-auto p-10 bg-white rounded-md dark:bg-color-grey-0">
+      <div className="mt-5 w-[min(600px,100%)]  mr-auto p-10 bg-white rounded-md dark:bg-color-grey-0">
         <form className="space-y-3">
           <div>
             <label
