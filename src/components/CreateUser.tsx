@@ -1,13 +1,26 @@
 import { useForm, SubmitHandler } from "react-hook-form";
 import { NewUserType } from "../types/types";
-
+import { useSignUpUser } from "../hooks/useUsers";
+import toast from "react-hot-toast";
 const CreateUser = () => {
-  const { register, formState, handleSubmit, getValues } =
-    useForm<NewUserType>();
+  const { register, handleSubmit, getValues, reset } = useForm<NewUserType>();
 
-  const { name } = formState.errors;
+  const { isPending, signUpUserEmail } = useSignUpUser();
+
   const submitHandler: SubmitHandler<NewUserType> = (data) => {
     console.log(data);
+    signUpUserEmail(
+      { name: data.name, email: data.email, password: data.password },
+      {
+        onSuccess: () => {
+          toast.success("Successfully created ! Checki your inbox to confirm");
+          reset();
+        },
+        onError: () => {
+          toast.error("Error creating new user  ");
+        },
+      }
+    );
   };
   return (
     <div className=" w-[min(600px,100%)] px-10 py-5 bg-white dark:bg-color-grey-0">
@@ -92,7 +105,11 @@ const CreateUser = () => {
           <button type="reset" className="btn bg-white border text-slate-900">
             Cancel
           </button>
-          <button className="btn" type="submit">
+          <button
+            className={`btn ${isPending && "opacity-80 cursor-not-allowed"}`}
+            type="submit"
+            disabled={isPending}
+          >
             Create New User
           </button>
         </div>

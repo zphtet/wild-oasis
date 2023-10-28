@@ -1,4 +1,4 @@
-import { LogInUser, getUser } from "../supabase/apiUsers";
+import { LogInUser, getUser, signUpUser } from "../supabase/apiUsers";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -24,5 +24,16 @@ export const useGetUser = () => {
     isError,
     isLoading,
     isAuthenticated: data?.role === "authenticated",
+  };
+};
+
+export const useSignUpUser = () => {
+  const { isPending, mutate: signUpUserEmail } = useMutation({
+    mutationFn: signUpUser,
+  });
+
+  return {
+    isPending,
+    signUpUserEmail,
   };
 };

@@ -1,7 +1,11 @@
+import { useGetUser } from "../hooks/useUsers";
+
 type Props = {
   css?: string;
 };
 const Navbar = ({ css }: Props) => {
+  const { data, isAuthenticated, isError, isLoading } = useGetUser();
+  console.log(data, " user data navbar");
   const modeHandler = () => {
     if (!document.body.className) {
       document.body.className = "dark";
@@ -14,10 +18,15 @@ const Navbar = ({ css }: Props) => {
   };
   return (
     <div className={`${css} dark:bg-color-grey-0`}>
-      Navbar
-      <button onClick={modeHandler} className="cursor-pointer px-3 py-1 border">
-        Mode
-      </button>
+      <div className="border border-blue-600 flex ">
+        <button
+          onClick={modeHandler}
+          className="cursor-pointer px-3 py-1 border"
+        >
+          Mode
+        </button>
+        <p className=""> Hello {data?.user_metadata?.name}</p>
+      </div>
     </div>
   );
 };
