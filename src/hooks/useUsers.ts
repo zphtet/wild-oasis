@@ -1,4 +1,9 @@
-import { LogInUser, getUser, signUpUser } from "../supabase/apiUsers";
+import {
+  LogInUser,
+  getUser,
+  signUpUser,
+  updateUser,
+} from "../supabase/apiUsers";
 
 import { useMutation, useQuery } from "@tanstack/react-query";
 
@@ -35,5 +40,16 @@ export const useSignUpUser = () => {
   return {
     isPending,
     signUpUserEmail,
+  };
+};
+
+export const useUpdateUser = () => {
+  const { isPending, mutate: updateUserAccount } = useMutation({
+    mutationFn: updateUser,
+  });
+
+  return {
+    isPending,
+    updateUserAccount,
   };
 };

@@ -8,6 +8,7 @@ import Setting from "./pages/Setting";
 import BookingDetail from "./components/BookingDetail";
 import Login from "./pages/Login";
 import ProtectRoutes from "./components/ProtectRoutes";
+import Account from "./pages/Account";
 function App() {
   return (
     <div>
@@ -24,6 +25,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
 
           <Route path="/booking" element={<Bookings />} />
+          <Route path="/account" element={<Account />} />
           <Route
             path="/booking/detail/:bookingId"
             element={<BookingDetail />}

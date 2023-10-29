@@ -1,13 +1,13 @@
 import toast from "react-hot-toast";
 import { useGetUser } from "../hooks/useUsers";
 import { signOutUser } from "../supabase/apiUsers";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 type Props = {
   css?: string;
 };
 const Navbar = ({ css }: Props) => {
-  const { data, isAuthenticated, isError, isLoading } = useGetUser();
-  console.log(data, " user data navbar");
+  const { data, isAuthenticated } = useGetUser();
+
   const navigate = useNavigate();
   const modeHandler = () => {
     if (!document.body.className) {
@@ -43,6 +43,7 @@ const Navbar = ({ css }: Props) => {
             Sign Out
           </button>
         )}
+        {isAuthenticated && <Link to={"/account"}>Account Page</Link>}
       </div>
     </div>
   );

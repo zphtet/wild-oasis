@@ -53,4 +53,5 @@ export type NewUserType = {
   email: string;
   password: string;
   confirmPassword: string;
+  image?: string;
 };
