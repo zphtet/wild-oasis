@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { NewUserType } from "../types/types";
 import { useGetUser, useUpdateUser } from "../hooks/useUsers";
 import toast from "react-hot-toast";
-import { QueryKey, useQueryClient } from "@tanstack/react-query";
+import { useQueryClient } from "@tanstack/react-query";
 
 const Account = () => {
   const { data } = useGetUser();
