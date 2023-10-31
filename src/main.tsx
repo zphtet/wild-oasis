@@ -10,7 +10,7 @@ const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <QueryClientProvider client={queryClient}>
     <BrowserRouter>
-      <ErrorBoundary fallback={<Error />}>
+      <ErrorBoundary FallbackComponent={Error}>
         <App />
       </ErrorBoundary>
     </BrowserRouter>

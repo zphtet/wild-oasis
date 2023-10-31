@@ -8,19 +8,23 @@ import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import Loading from "../components/Loading";
 const Login = () => {
-  const { register, handleSubmit } = useForm<Partial<NewUserType>>();
+  const { register, handleSubmit } = useForm<Partial<NewUserType>>({
+    defaultValues: {
+      email: "test@gmail.com",
+      password: "test1234",
+    },
+  });
   const { isPending, LoginByEmailPassword } = useLoginUser();
   const { isAuthenticated, isLoading } = useGetUser();
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  //   console.log(data, isAuthenticated, isError, isLoading);
   const submitHandler: SubmitHandler<Partial<NewUserType>> = async (data) => {
     LoginByEmailPassword(
       { email: data.email, password: data.password },
       {
         onSuccess: (data) => {
           toast.success("Login successful");
-          console.log(data);
+
           queryClient.setQueryData(
             "user" as unknown as QueryKey,
             () => data.user
@@ -28,7 +32,6 @@ const Login = () => {
           navigate("/");
         },
         onError: (err) => {
-          console.log(err);
           toast.error(err.message);
         },
       }

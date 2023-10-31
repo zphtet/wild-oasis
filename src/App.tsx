@@ -1,15 +1,15 @@
-import { lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-const AppLayout = lazy(() => import("./components/AppLayout"));
-const Bookings = lazy(() => import("./pages/Bookings"));
-const Cabins = lazy(() => import("./pages/Cabins"));
-const Dashboard = lazy(() => import("./pages/Dashboard"));
-const Users = lazy(() => import("./pages/Users"));
-const Setting = lazy(() => import("./pages/Setting"));
-const BookingDetail = lazy(() => import("./components/BookingDetail"));
-const Login = lazy(() => import("./pages/Login"));
-const ProtectRoutes = lazy(() => import("./components/ProtectRoutes"));
-const Account = lazy(() => import("./pages/Account"));
+import AppLayout from "./components/AppLayout";
+import Bookings from "./pages/Bookings";
+import Cabins from "./pages/Cabins";
+import Dashboard from "./pages/Dashboard";
+import Users from "./pages/Users";
+import Setting from "./pages/Setting";
+import BookingDetail from "./components/BookingDetail";
+import Login from "./pages/Login";
+import ProtectRoutes from "./components/ProtectRoutes";
+import Account from "./pages/Account";
+
 function App() {
   return (
     <div>
