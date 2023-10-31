@@ -24,12 +24,43 @@ const filterByArrBooking = [
   },
 ];
 
-const FilterCabin = ({ section }: { section: string }) => {
-  const Arr = section === "booking" ? filterByArrBooking : filterByArrCabin;
+const filterByArrDashboard = [
+  {
+    id: 1,
+    name: "7days",
+  },
+  {
+    id: 2,
+    name: "30days",
+  },
+  {
+    id: 3,
+    name: "90days",
+  },
+];
+
+const FilterCabin = ({
+  section,
+}: {
+  section: "booking" | "cabin" | "dashboard";
+}) => {
+  const Arr =
+    section === "booking"
+      ? filterByArrBooking
+      : section === "cabin"
+      ? filterByArrCabin
+      : filterByArrDashboard;
   return (
     <div className="bg-white px-3 py-1 space-x-2 dark:bg-color-grey-0">
       {Arr.map(({ id, name }) => {
-        return <FilterBtn key={id} name={name} />;
+        return (
+          <FilterBtn
+            key={id}
+            name={name}
+            setPage={section === "booking"}
+            section={section}
+          />
+        );
       })}
     </div>
   );

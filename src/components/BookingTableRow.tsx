@@ -14,6 +14,7 @@ import ConfirmDelete from "./ConfirmDelete";
 import toast from "react-hot-toast";
 import { useQueryClient } from "@tanstack/react-query";
 import { useUpdateBooking } from "../hooks/useBookings";
+import { formatPrice } from "../utils/helper";
 type BookingProps = {
   booking: BookingType;
 };
@@ -129,7 +130,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
             {status}
           </p>
         </td>
-        <td className="px-1 py-4">${price}</td>
+        <td className="px-1 py-4">{formatPrice(price)}</td>
         <td className="px-4 py-4   table-cell h-full text-right  ">
           <button
             onClick={focusHandler}

@@ -40,7 +40,7 @@ const Login = () => {
     <>
       <Toaster />
       <div className=" h-screen bg-slate-50 dark:bg-color-grey-0 grid place-items-center">
-        <div className=" bg-white  w-[min(520px,100%)] px-10 py-5 flex flex-col items-center gap-4 ">
+        <div className=" bg-white dark:bg-color-grey-50  w-[min(520px,100%)] px-10 py-5 flex flex-col items-center gap-4 ">
           <div className="max-w-[150px]">
             <img
               src="/logo-light.png"

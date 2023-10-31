@@ -80,3 +80,14 @@ export const updateBooking = async (obj: Partial<BookingType>) => {
 
   return data;
 };
+
+export const getBookingsStats = async () => {
+  const { data, error } = await supabase
+    .from("bookings")
+    .select("*")
+    .order("created_at", { ascending: true });
+
+  if (error) throw new Error("Error getting bookings");
+  // console.log(data);
+  return data;
+};

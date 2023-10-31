@@ -167,8 +167,9 @@ const BookingDetail = ({ isChecking }: { isChecking?: boolean }) => {
         <div className="p-5">
           <div
             className={`bg-yellow-300/40 text-yellow-800 p-5 flex items-center justify-between dark:bg-yellow-300/80 ${
-              (isDonePayment || confirm) &&
-              "bg-green-300/40 text-green-800 dark:bg-green-300"
+              isDonePayment || confirm
+                ? "bg-green-300/40 text-green-800 dark:bg-green-300"
+                : ""
             }`}
           >
             <p className="flex items-center gap-3">

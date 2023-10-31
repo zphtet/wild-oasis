@@ -36,4 +36,7 @@ html {
   .pagi-btn {
     @apply border border-violet-600 px-4 pb-0.5 rounded-md hover:opacity-50;
   }
+  .stat-width {
+    @apply w-[calc((100%-40px)/3)];
+  }
 }

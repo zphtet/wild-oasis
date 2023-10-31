@@ -1,20 +1,31 @@
 import { useSearchParams } from "react-router-dom";
 
-const FilterBtn = ({ name }: { name: "cabin" | "booking" }) => {
+const FilterBtn = ({
+  name,
+  setPage,
+}: {
+  name: string;
+  setPage: boolean;
+  section?: "booking" | "cabin" | "dashboard";
+}) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const clickHandler = () => {
     setSearchParams((params) => {
       params.set("filter", name.toLocaleLowerCase());
-      // if (name === "booking") params.set("page", "1");
-      params.set("page", "1");
+      if (setPage) {
+        params.set("page", "1");
+      }
+
       return params;
     });
   };
 
   const filterVal = searchParams.get("filter");
 
-  let menuActive = filterVal === null && name.toLocaleLowerCase() === "all";
+  let menuActive =
+    (filterVal === null && name.toLocaleLowerCase() === "all") ||
+    name.toLocaleLowerCase() === "7days";
   if (filterVal) {
     menuActive = filterVal === name.toLocaleLowerCase();
   }

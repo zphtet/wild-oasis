@@ -3,6 +3,7 @@ import {
   deleteBooking,
   getBooking,
   updateBooking,
+  getBookingsStats,
 } from "../supabase/apiBookings";
 
 import { useQuery, useMutation } from "@tanstack/react-query";
@@ -95,4 +96,17 @@ export const useUpdateBooking = () => {
   });
 
   return { isPending, updateBookingById };
+};
+
+export const useGetBookingsStats = () => {
+  const { isError, isLoading, data } = useQuery({
+    queryKey: ["bookingstats"],
+    queryFn: getBookingsStats,
+  });
+
+  return {
+    isError,
+    isLoading,
+    data,
+  };
 };

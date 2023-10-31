@@ -9,7 +9,7 @@ import { BiEdit } from "react-icons/bi";
 import { RiDeleteBinLine } from "react-icons/ri";
 import Form from "./Form";
 import ConfirmDelete from "./ConfirmDelete";
-
+import { formatPrice } from "../utils/helper";
 type RowType = {
   rowData: CabinType;
 };
@@ -88,9 +88,9 @@ const TableRow = ({ rowData }: RowType) => {
           <p>{name}</p>
         </th>
         <td className=" px-1 py-4">Fill up to {maxCapacity} guests</td>
-        <td className=" px-1 py-4">${regularPrice}</td>
+        <td className=" px-1 py-4">{formatPrice(regularPrice)}</td>
         <td className="px-1 py-4">{`${
-          discount > 0 ? "$" + discount : "--"
+          discount > 0 ? "" + formatPrice(discount) : "--"
         }`}</td>
         <td className="px-1 py-4   table-cell h-full text-right ">
           <button

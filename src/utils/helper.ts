@@ -22,3 +22,17 @@ export const formatDate2 = (date: Date) => {
     weekday: "short",
   });
 };
+
+export const formatPrice = (price: number) => {
+  const USDollar = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  });
+  return USDollar.format(price);
+};
+
+export const getKey = (date: Date) => {
+  return intlFormat(new Date(date), {
+    month: "short",
+  });
+};
