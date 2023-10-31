@@ -49,7 +49,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
       ? "bg-red-400"
       : status === "checked-in"
       ? "bg-green-400"
-      : "bg-gray-200";
+      : "bg-gray-200 dark:bg-gray-800";
 
   const focusHandler = (e: React.MouseEvent) => {
     const target = e.target as HTMLButtonElement;
@@ -125,7 +125,7 @@ const BookingTableRow = ({ booking }: BookingProps) => {
         </td>
         <td className="px-1 py-4 ">
           <p
-            className={`border w-max px-3 py-1 rounded-3xl text-white ${statusStyle}`}
+            className={` w-max px-3 py-1 rounded-3xl text-white ${statusStyle}`}
           >
             {status}
           </p>
