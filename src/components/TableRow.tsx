@@ -69,7 +69,6 @@ const TableRow = ({ rowData }: RowType) => {
     setShowEditForm((prev) => !prev);
   };
 
-  // const isLoading = isDeleting || isCreating;
   return (
     <>
       <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">

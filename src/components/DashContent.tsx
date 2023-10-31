@@ -15,7 +15,6 @@ const DashContent = () => {
   const { data, isError, isLoading } = useGetBookingsStats();
   if (isError) return <Error />;
   if (isLoading) return <Loading />;
-  console.log(data);
   const numCheckedIn = data?.filter(
     (book) => book.status === "checked-in"
   ).length;
@@ -32,14 +31,13 @@ const DashContent = () => {
     }
     byMonths[key].price += book.totalPrice;
   });
-  console.log(byMonths);
+
   const chartDataArr = Object.keys(byMonths).map((key) => {
     return {
       name: key,
       sale: byMonths[key].price!,
     };
   });
-  console.log(chartDataArr);
   return (
     <div className="py-5">
       <div className="stats flex gap-5">

@@ -45,7 +45,6 @@ const BookingDetail = ({ isChecking }: { isChecking?: boolean }) => {
 
   const tPrice = totalPrice + numNights * numGuests * 5;
   const brfPrice = numNights * numGuests * 5;
-
   const isDonePayment = isPaid;
   const isBreakfast = hasBreakfast;
   const isCheckedIn = status === "checked-in";

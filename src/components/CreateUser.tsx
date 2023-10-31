@@ -8,7 +8,6 @@ const CreateUser = () => {
   const { isPending, signUpUserEmail } = useSignUpUser();
 
   const submitHandler: SubmitHandler<NewUserType> = (data) => {
-    // console.log(data);
     toast.error("Create user not allowed");
     return;
     signUpUserEmail(

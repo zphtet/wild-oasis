@@ -45,7 +45,6 @@ export const signOutUser = async () => {
 };
 
 export const updateUser = async ({ password, name }: Partial<NewUserType>) => {
-  console.log(password, name, "password and name");
   const { data, error } = await supabase.auth.updateUser({
     password: password,
     data: { name: name },

@@ -29,7 +29,6 @@ const Navbar = ({ css }: Props) => {
     }
   };
   const signOuHandler = async () => {
-    // alert("sign out");
     setLoading(true);
     await signOutUser();
     setLoading(false);
