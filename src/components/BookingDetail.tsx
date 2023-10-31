@@ -17,8 +17,8 @@ const BookingDetail = ({ isChecking }: { isChecking?: boolean }) => {
   const { isPending, updateBookingById } = useUpdateBooking();
   const [confirm, setConfirm] = useState(false);
   const [inBrf, setInBrf] = useState(false);
-  const confirmRef = useRef<HTMLInputElement>();
-  const brfRef = useRef<HTMLInputElement>();
+  const confirmRef = useRef<HTMLInputElement>(null);
+  const brfRef = useRef<HTMLInputElement>(null);
   const queryClient = useQueryClient();
 
   if (isError) return <Error />;

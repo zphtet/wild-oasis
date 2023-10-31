@@ -7,7 +7,10 @@ const ProtectRoutes = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
 
   if (isLoading) return <Loading />;
-  if (!isAuthenticated) return navigate("/login");
+  if (!isAuthenticated) {
+    navigate("/login");
+    return <Loading />;
+  }
   return children;
 };
 

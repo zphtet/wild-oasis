@@ -2,7 +2,7 @@ import React from "react";
 
 type handlerType = () => void;
 const useClickOutside = (handler: handlerType) => {
-  const ref = React.useRef<HTMLElement>();
+  const ref = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
     const handleClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement;

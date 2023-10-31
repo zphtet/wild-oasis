@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { QueryKey, useQueryClient } from "@tanstack/react-query";
 import { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 const Login = () => {
   const { register, handleSubmit } = useForm<Partial<NewUserType>>();
   const { isPending, LoginByEmailPassword } = useLoginUser();
@@ -14,7 +15,6 @@ const Login = () => {
   const navigate = useNavigate();
   //   console.log(data, isAuthenticated, isError, isLoading);
   const submitHandler: SubmitHandler<Partial<NewUserType>> = async (data) => {
-    console.log(data);
     LoginByEmailPassword(
       { email: data.email, password: data.password },
       {
@@ -34,8 +34,11 @@ const Login = () => {
       }
     );
   };
-  if (isLoading) return null;
-  if (isAuthenticated) return navigate(-1);
+  if (isLoading) return <Loading />;
+  if (isAuthenticated) {
+    navigate(-1);
+    return <Loading />;
+  }
   return (
     <>
       <Toaster />

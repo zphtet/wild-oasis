@@ -16,7 +16,6 @@ const Account = () => {
     },
   });
   const queryClient = useQueryClient();
-  //   console.log(data);
 
   const submitHandler: SubmitHandler<Partial<NewUserType>> = (updateData) => {
     if (
@@ -26,6 +25,8 @@ const Account = () => {
       return;
 
     if (updateData.password) {
+      toast.error("Update password is not allowed in production ");
+      return;
       updateUserAccount(
         {
           password: updateData.password,
